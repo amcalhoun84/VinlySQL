@@ -37,6 +37,8 @@ exports.isValidPassword = function (userPassword, err, res) {
   let lowerCase = false;
   let number = false;
 
+
+  // is redundant, but useful when doing tests
   function isDigit(c) {
     return /\d/.test(c);
   };
