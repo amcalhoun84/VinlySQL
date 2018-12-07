@@ -1,5 +1,6 @@
 'use strict';
 var db = require('./dbconnection');
+const v = require('../utility/validators');
 
 var Beer = function (beer) {
   this.beer_name = beer.beer_name;

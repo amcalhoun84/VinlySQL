@@ -26,7 +26,7 @@ Wine.getAllWines = function getAllWines(result) {
 };
 
 Wine.getWineById = function getWineById(wineId, result) {
-  db.query("SELECT * FROM wine where wine_id = ?", wineId, function (err, res) {
+  db.query("SELECT * FROM wine where wine_id = ?", [wineId], function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -39,7 +39,7 @@ Wine.getWineById = function getWineById(wineId, result) {
 
 
 Wine.getWineByName = function getWineByName(wineName, result) {
-  db.query("SELECT * FROM wine where wine_name = ?", wineName, function (err, res) {
+  db.query("SELECT * FROM wine where wine_name = ?", [wineName], function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -51,7 +51,7 @@ Wine.getWineByName = function getWineByName(wineName, result) {
 };
 
 Wine.getWineByVintage = function getWineByVintage(vintage, result) {
-  db.query('SELECT * from wine where vintage = ?', vintage, function (err, res) {
+  db.query('SELECT * from wine where vintage = ?', [vintage], function (err, res) {
     if (err) {
       result(null, err);
     } else {
@@ -61,7 +61,7 @@ Wine.getWineByVintage = function getWineByVintage(vintage, result) {
 };
 
 Wine.getWineByVarietal = function getWineByVarietal(varietal, result) {
-  db.query("SELECT * FROM wine where varietal = ?", varietal, function (err, res) {
+  db.query("SELECT * FROM wine where varietal = ?", [varietal], function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -73,7 +73,7 @@ Wine.getWineByVarietal = function getWineByVarietal(varietal, result) {
 };
 
 Wine.getWineByWinery = function getWineByWinery(winery, result) {
-  db.query("SELECT * FROM wine where winery = ?", winery, function (err, res) {
+  db.query("SELECT * FROM wine where winery = ?", [winery], function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -85,7 +85,7 @@ Wine.getWineByWinery = function getWineByWinery(winery, result) {
 };
 
 Wine.getWineByRegion = function getWineByRegion(wineRegion, result) {
-  db.query("SELECT * FROM wine where region = ?", wineRegion, function (err, res) {
+  db.query("SELECT * FROM wine where region = ?", [wineRegion], function (err, res) {
     if (err) {
       result(null, err);
     } else {
@@ -106,7 +106,7 @@ Wine.getWineByLike = function getWineByName(wineLike, result) {
 };
 
 Wine.createWine = function createWine(newWine, result) {
-  db.query("INSERT INTO wine set ?", newWine, function (err, res) {
+  db.query("INSERT INTO wine set ?", [newWine], function (err, res) {
     if (err) {
       result(null, err);
     } else {
@@ -205,7 +205,7 @@ Wine.updateWineById = function updateWineById(wineId, wineUpdate, result) {
 
 };
 Wine.deleteWineById = function deleteWineById(wineId, result) {
-  db.query("DELETE from wine where wine_id = ?", wineId, function (err, res) {
+  db.query("DELETE from wine where wine_id = ?", [wineId], function (err, res) {
     if (err) {
       console.log("error", err);
       result(null, err);

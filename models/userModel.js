@@ -1,6 +1,7 @@
 'use strict';
 
 const bcrypt = require('bcrypt'),
+  v = require('../utility/validators'),
   db = require('../models/dbconnection');
 
 var User = function (user) {
@@ -38,13 +39,14 @@ User.getUserByUserName = function getUserByUserName(userName, result) {
 };
 
 User.registerUser = function registerUser(newUser, result) {
-  console.log(newUser);
   bcrypt.genSalt(10, function (err, salt) {
     bcrypt.hash(newUser.password, salt, function (err, pw_hash) {
       newUser.pw_hash = pw_hash;
       db.query("INSERT INTO users SET ?", newUser, function (err, res) {
         if (err) {
+          //console.log("Error: ", err.sqlMessage);
           result(null, err);
+
         } else {
           result(null, res.insertId);
         }
@@ -52,6 +54,7 @@ User.registerUser = function registerUser(newUser, result) {
     });
   });
 };
+
 User.checkPassword = function checkPassword(email, password, result) {
   db.query("SELECT pw_hash from users where email = ? and password = ?", [email, password], function (err, rows) {
     if (!email || !password) {
@@ -59,7 +62,6 @@ User.checkPassword = function checkPassword(email, password, result) {
     }
 
     var hash = rows[0].pw_hash;
-
     bcrypt.compare(password, hash, function (error, res) {
       db.query("SELECT * from users where email = ? and password = ? and pw_hash = ?", [email, password, hash], function (err, res) {
         if (err)
