@@ -96,4 +96,25 @@ Food.deleteFoodById = function deleteFoodById(foodId, result) {
   });
 };
 
+Wine.matchFoodToWine = function matchFoodToWine(foodType, result) {
+  db.query("SELECT varietal from wine left join wine_food_pairing wfp on wine.wine_id = wfp.wine_id left join food on wfp.food_id = food.food_id where food.food_type = ?", foodType, function (err, res) {
+    if (err) {
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+Beer.matchFoodToBeer = function matchFoodToBeer(foodType, result) {
+  db.query("SELECT beer_type from beer left join beer_food_pairing bfp on beer.beer_id = bfp.beer_id left join food on bfp.food_id = food.food_id where food.food_type = ? ", foodType, function (err, res) {
+    if (err) {
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+
 module.exports = Food;

@@ -2,14 +2,22 @@
 var db = require('./dbconnection');
 const v = require('../utility/validators');
 
+// var Beer = function (beer) {
+//   this.beer_name = beer.beer_name;
+//   this.brewery = beer.brewery;
+//   this.type = beer.beer_type;
+//   this.region = beer.region;
+//   this.notes = beer.notes;
+//   this.intensity = beer.intensity;
+//   this.color = beer.color;
+//   this.description = this.description;
+// };
+
 var Beer = function (beer) {
-  this.beer_name = beer.beer_name;
-  this.brewery = beer.brewery;
-  this.type = beer.beer_type;
-  this.region = beer.region;
+  this.beer_type = beer.beer_type;
   this.notes = beer.notes;
   this.intensity = beer.intensity;
-  this.color = beer.color;
+  this.color = beer.color;  // color does vary from brewer to brewer...
   this.description = this.description;
 };
 
@@ -23,7 +31,7 @@ Beer.getAllBeer = function getAllBeer(result) {
   });
 };
 
-Beer.getBeerByName = function getBeerByName(beerName, result) {
+/* Beer.getBeerByName = function getBeerByName(beerName, result) {
   db.query("SELECT * from beer where beer_name = ?", beerName, function (err, res) {
     if (err) {
       result(null, err);
@@ -32,9 +40,9 @@ Beer.getBeerByName = function getBeerByName(beerName, result) {
     }
   });
 };
-
+ */
 Beer.getBeerById = function getBeerById(beerId, result) {
-  db.query("SELECT * from beer where beer_id = ?", beerId, function (err, res) {
+  db.query("SELECT * from beer where beer_id = ?", [beerId], function (err, res) {
     if (err) {
       result(null, err);
     } else {
@@ -43,7 +51,7 @@ Beer.getBeerById = function getBeerById(beerId, result) {
   });
 };
 
-Beer.getBeerByBrewery = function getBeerByBrwery(brewery, result) {
+/* Beer.getBeerByBrewery = function getBeerByBrwery(brewery, result) {
   db.query("SELECT * from beer where brewery = ?", brewery, function (err, res) {
     if (err) {
       result(null, err);
@@ -51,10 +59,10 @@ Beer.getBeerByBrewery = function getBeerByBrwery(brewery, result) {
       result(null, res);
     }
   });
-};
+}; */
 
 Beer.getBeerByLike = function getBeerByLike(beerLike, result) {
-  db.query("SELECT * from beer where beer_name like = ?", '%' + beerLike + '%', function (err, res) {
+  db.query("SELECT * from beer where beer_type like = ?", '%' + beerLike + '%', function (err, res) {
     if (err) {
       result(null, err);
     } else {
@@ -63,7 +71,40 @@ Beer.getBeerByLike = function getBeerByLike(beerLike, result) {
   });
 };
 
-Beer.getBeerByRegion = function getBeerByRegion(beerRegion, result) {
+Beer.getBeerByIntensity = function getBeerByLike(beerIntensity, result) {
+  db.query("SELECT * from beer where beer_type like = ?", '%' + beerIntensity + '%', function (err, res) {
+    if (err) {
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+Beer.getBeerByNotes = function getBeerByLike(beerNotes, result) {
+  db.query("SELECT * from beer where beer_type like = ?", '%' + beerNotes + '%', function (err, res) {
+    if (err) {
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+
+Beer.getBeerByColor = function getBeerByColor(beerColor, result) {
+  db.query("SELECT * from beer where color = ?", [beerColor], function (err, res) {
+    if (err) {
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+
+
+/* Beer.getBeerByRegion = function getBeerByRegion(beerRegion, result) {
   db.query("SELECT * from beer where region = ?", beerRegion, function (err, res) {
     if (err) {
       result(null, err);
@@ -71,7 +112,7 @@ Beer.getBeerByRegion = function getBeerByRegion(beerRegion, result) {
       result(null, res);
     }
   });
-};
+}; */
 
 
 
