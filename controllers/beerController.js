@@ -83,6 +83,13 @@ exports.update_beer_all_by_id = function (req, res) {
   });
 };
 
+exports.match_beer_food = (req, res) => {
+  Beer.matchBeerToFood(req.params.beer_type, (err, beer) => {
+    if (err) res.send(err);
+    res.json(beer);
+  });
+};
+
 exports.delete_beer_by_id = function (req, res) {
   Beer.deleteBeer(req.params.beer_id, function (err, beer) {
     if (err) res.send(err);

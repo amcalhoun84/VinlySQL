@@ -63,9 +63,23 @@ exports.create_food = (req, res) => {
   }
 };
 
+exports.match_food_wine = (req, res) => {
+  Food.matchFoodToWine(req.params.food_type, (err, food) => {
+    if (err) res.send(err);
+    res.send(food);
+  });
+};
+
+exports.match_food_beer = (req, res) => {
+  Food.matchFoodToBeer(req.params.food_type, (err, food) => {
+    if (err) res.send(err);
+    res.send(food);
+  });
+};
+
 exports.delete_food_by_id = (req, res) => {
   Food.deleteFoodById(req.params.food_id, (err, food) => {
     if (err) res.send(err);
     res.send(food);
   });
-}
+};

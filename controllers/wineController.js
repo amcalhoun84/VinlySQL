@@ -73,6 +73,13 @@ exports.update_wine_by_id = function (req, res) {
   });
 };
 
+exports.match_wine_food = (req, res) => {
+  Wine.matchWineToFood(req.params.varietal, (err, wine) => {
+    if (err) res.send(err);
+    res.json(wine);
+  });
+};
+
 exports.delete_wine_by_id = function (req, res) {
   Wine.deleteWineById(req.params.wine_id, function (err, wine) {
     if (err) res.send(err)

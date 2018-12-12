@@ -32,6 +32,9 @@ module.exports = function (app) {
   app.route('/api/v1/wine/like/:wine_like')
     .get(wine.get_wine_by_like);
 
+  app.route('/api/v1/wine/match/:varietal')
+    .get(wine.match_wine_food);
+
   //beer
 
   app.route('/api/v1/beer')
@@ -55,6 +58,9 @@ module.exports = function (app) {
   app.route('/api/v1/beer/region/:beer_region')
     .get(beer.get_beer_by_region);
 
+  app.route('/api/v1/beer/match/:beer_type')
+    .get(beer.match_beer_food);
+
   // food
   app.route('/api/v1/food')
     .get(food.list_all_food)
@@ -65,7 +71,14 @@ module.exports = function (app) {
     //.put(food.update_food_by_id);
     .delete(food.delete_food_by_id);
 
+  app.route('/api/v1/food/match/beer/:food_type')
+    .get(food.match_food_beer);
 
+
+  app.route('/api/v1/food/match/wine/:food_type')
+    .get(food.match_food_wine);
+
+  // users
   app.route('/api/v1/user/')
     .get(user.list_all_users)
     .post(user.register_user);

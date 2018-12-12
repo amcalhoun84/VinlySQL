@@ -219,6 +219,15 @@ Beer.updateBeerById = function updateBeerById(beerId, beerUpdate, result) {
 
 };
 
+// MATCH
+
+Beer.matchBeerToFood = function matchBeerToFood(beerType, result) {
+  db.query("SELECT food_type from food left join wine_food_pairing wfp on food.food_id = wfp.food_id  left join wine w on w.wine_id = wfp.wine_id where w.varietal = ?", beerType, (req, res) => {
+    if (err) result(null, err);
+    else result(null, res)
+  });
+};
+
 Beer.deleteBeer = function deleteBeer(beerId, result) {
   db.query("DELETE from beer where beer_id = ?", beerId, function (err, res) {
     if (err) result(null, err);

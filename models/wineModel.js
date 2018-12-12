@@ -229,7 +229,7 @@ Wine.deleteWineById = function deleteWineById(wineId, result) {
 
 // Matchers
 
-Wine.matchWineToFood = function matchWineToFood(wineId, wineVarietal, result) {
+Wine.matchWineToFood = function matchWineToFood(wineVarietal, result) {
   db.query("SELECT food_type from food left join wine_food_pairing wfp on food.food_id = wfp.food_id  left join wine w on w.wine_id = wfp.wine_id where w.varietal = ?; ", wineVarietal, function (err, res) {
     if (err) {
       result(null, err);
