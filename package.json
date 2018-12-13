@@ -6,7 +6,6 @@
   "dependencies": {
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
-    "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-fileupload": "^1.0.0",
     "express-rate-limit": "^3.3.2",
@@ -16,8 +15,16 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
+    "bcrypt-promise": "^2.0.0",
     "chai": "^4.2.0",
-    "mocha": "^5.2.0"
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "jsonwebtoken": "^8.4.0",
+    "mocha": "^5.2.0",
+    "morgan": "^1.9.1",
+    "parse-error": "^0.2.0",
+    "passport": "^0.4.0",
+    "sequelize": "^4.41.2"
   },
   "scripts": {
     "test": "echo \"Error: no test defined, yet!\" && exit 1",

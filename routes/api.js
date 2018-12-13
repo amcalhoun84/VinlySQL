@@ -40,6 +40,7 @@ module.exports = function (app) {
   app.route('/api/v1/beer')
     .get(beer.list_all_beer)
     .post(beer.create_beer);
+  //.delete(NUKE!!!!);
 
   app.route('/api/v1/beer/:beer_id')
     .get(beer.get_beer_by_id)
@@ -89,6 +90,9 @@ module.exports = function (app) {
   app.route('/api/v1/user/id/:user_name')
     .get(user.get_user_by_un);
 
-  app.route('/api/v1/user/password_check/:email/:password')
+  app.route('/api/v1/user/password_check/:username/:password')
     .get(user.check_password);
+
+  //app.route('/api/v1/user/login/')
+  //.post(user.login_user);
 };

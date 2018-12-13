@@ -60,7 +60,8 @@ exports.register_user = function (req, res) {
 };
 
 exports.check_password = (req, res) => {
-  User.checkPassword(req.params.email, req.params.password, function (err, user) {
+  User.checkPassword(req.params.username, req.params.password, function (err, user) {
+    console.log(req.params.username);
     if (err) res.send(err);
     res.send(user);
   });

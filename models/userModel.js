@@ -11,7 +11,6 @@ var User = function (user) {
   this.first_name = user.first_name;
   this.middle_name = user.middle_name;
   this.last_name = user.last_name;
-  this.pw_hash = user.pw_hash;
 
 }
 
@@ -39,14 +38,13 @@ User.getUserByUserName = function getUserByUserName(userName, result) {
 };
 
 User.registerUser = function registerUser(newUser, result) {
+  console.log(newUser);
   bcrypt.genSalt(10, function (err, salt) {
     bcrypt.hash(newUser.password, salt, function (err, pw_hash) {
-      newUser.pw_hash = pw_hash;
-      db.query("INSERT INTO users SET ?", newUser, function (err, res) {
+      newUser.password = pw_hash;
+      db.query("INSERT INTO users SET ?", newUser, function (err, res, next) {
         if (err) {
-          //console.log("Error: ", err.sqlMessage);
-          result(null, err);
-
+          console.log(err);
         } else {
           result(null, res.insertId);
         }
@@ -55,21 +53,45 @@ User.registerUser = function registerUser(newUser, result) {
   });
 };
 
-User.checkPassword = function checkPassword(email, password, result) {
-  db.query("SELECT pw_hash from users where email = ? and password = ?", [email, password], function (err, rows) {
-    if (!email || !password) {
-      return rows.json("You need a name or password...");
+User.checkPassword = function checkPassword(username, password, result) {
+
+  var hash;
+  db.query("select password from users where username = ?", username, function (err, res) {
+    if (err) console.log(err);
+    else {
+      hash = res[0].password;
+
+      bcrypt.compare(password, hash, function (err, res) {
+        if (err) console.log(err);
+        if (res) {
+          db.query("SELECT * from users where username = ? and password = ?", [username, hash], function (err, res) {
+            if (err)
+              result(null, err);
+            else
+              result(null, res);
+          });
+        } else {
+          console.log("No match found???");
+        }
+      });
+    }
+  });
+};
+
+User.loginUser = function loginUser(username, password, result) {
+  db.query("SELECT pw_hash from users where username = ? and password = ?", [username, password], function (err, res) {
+    if (!username || !password) {
+      return res.json("Yo, need some info here!");
     }
 
-    var hash = rows[0].pw_hash;
+    var hash = res[0].pw_hash;
     bcrypt.compare(password, hash, function (error, res) {
-      db.query("SELECT * from users where email = ? and password = ? and pw_hash = ?", [email, password, hash], function (err, res) {
-        if (err)
-          result(null, err);
-        else
-          result(null, res);
+      db.query("SELECT * from users where pw_hash = ?", hash, (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
       });
     });
   });
 };
+
 module.exports = User;
