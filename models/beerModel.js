@@ -222,7 +222,7 @@ Beer.updateBeerById = function updateBeerById(beerId, beerUpdate, result) {
 // MATCH
 
 Beer.matchBeerToFood = function matchBeerToFood(beerType, result) {
-  db.query("SELECT food_type from food left join wine_food_pairing wfp on food.food_id = wfp.food_id  left join wine w on w.wine_id = wfp.wine_id where w.varietal = ?", beerType, (req, res) => {
+  db.query("SELECT food_type from food left join beer_food_pairing bfp on food.food_id = bfp.food_id  left join beer b on b.beer_id = bfp.beer_id where b.beer_type = ?", beerType, (err, res) => {
     if (err) result(null, err);
     else result(null, res)
   });

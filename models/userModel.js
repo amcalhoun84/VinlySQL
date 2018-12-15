@@ -79,14 +79,16 @@ User.checkPassword = function checkPassword(username, password, result) {
 };
 
 User.loginUser = function loginUser(username, password, result) {
-  db.query("SELECT pw_hash from users where username = ? and password = ?", [username, password], function (err, res) {
+  db.query("SELECT password from users where username = ?", [username], function (err, res) {
+    console.log("Input username: ", username);
+    console.log("Input Password: ", password);
     if (!username || !password) {
       return res.json("Yo, need some info here!");
     }
-
-    var hash = res[0].pw_hash;
+    if (res[0].password)
+      var hash = res[0].password;
     bcrypt.compare(password, hash, function (error, res) {
-      db.query("SELECT * from users where pw_hash = ?", hash, (err, res) => {
+      db.query("SELECT email from users where password = ?", hash, (err, res) => {
         if (err) result(null, err);
         else result(null, res);
       });

@@ -93,6 +93,6 @@ module.exports = function (app) {
   app.route('/api/v1/user/password_check/:username/:password')
     .get(user.check_password);
 
-  //app.route('/api/v1/user/login/')
-  //.post(user.login_user);
+  app.route('/api/v1/user/login/')
+    .post(user.login_user);
 };

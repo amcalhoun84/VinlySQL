@@ -59,10 +59,19 @@ exports.register_user = function (req, res) {
   }
 };
 
+// Utility function, can be removed once alpha goes live
 exports.check_password = (req, res) => {
   User.checkPassword(req.params.username, req.params.password, function (err, user) {
     console.log(req.params.username);
     if (err) res.send(err);
     res.send(user);
   });
+};
+
+exports.login_user = (req, res) => {
+  User.loginUser(req.body.username, req.body.password,
+    function (err, user) {
+      if (err) res.send(err);
+      res.send(user);
+    });
 };
