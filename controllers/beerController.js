@@ -40,6 +40,20 @@ exports.get_beer_by_region = function (req, res) {
   });
 };
 
+exports.get_beer_region_and_brewery = function (req, res) {
+  Beer.getRegionAndBrewery(req.params.beer_region, req.params_brewery, function (err, beer) {
+    if (err) res.send(err);
+    res.send(beer);
+  });
+};
+
+exports.get_brewery_and_type = function (req, res) {
+  Beer.getBreweryAndType(req.params.brewery, req.params.beer_type, function (err, beer) {
+    if (err) res.send(err);
+    res.send(beer);
+  });
+};
+
 exports.get_beer_by_like = function (req, res) {
   Beer.getBeerByLike(req.params.beer_like, function (err, beer) {
     if (err) res.send(err);

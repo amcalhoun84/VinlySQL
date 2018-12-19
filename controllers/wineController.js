@@ -32,7 +32,42 @@ exports.get_wine_by_winery = function (req, res) {
 };
 
 exports.get_wine_by_region = function (req, res) {
-  Beer.getWineByRegion(req.params.wine_region, function (err, wine) {
+  Wine.getWineByRegion(req.params.wine_region, function (err, wine) {
+    if (err) res.send(err);
+    res.send(wine);
+  });
+};
+
+exports.get_wine_by_varietal = (req, res) => {
+  Wine.getWineByVarietal(req.params.varietal, (err, wine) => {
+    if (err) res.send(err);
+    res.send(wine);
+  });
+};
+
+exports.get_wine_by_winery_varietal = (req, res) => {
+  Wine.getWineryVarietal(req.params.winery, req.params.varietal, (err, wine) => {
+    if (err) res.send(err);
+    res.send(wine);
+  });
+};
+
+exports.get_winery_vintage_varietal = (req, res) => {
+  Wine.getWineryVarietal(req.params.winery, req.params.vintage, req.params.varietal, (err, wine) => {
+    if (err) res.send(err);
+    res.send(wine);
+  });
+};
+
+exports.get_wine_varietal_and_region = function (req, res) {
+  Wine.getRegionAndVarietal(req.params.wine_region, req.params.varietal, (err, wine) => {
+    if (err) res.send(err);
+    res.send(wine);
+  });
+};
+
+exports.get_wine_region_and_winery = (req, res) => {
+  Wine.getRegionAndWinery(req.params.wine_region, req.params.winery, (err, wine) => {
     if (err) res.send(err);
     res.send(wine);
   });

@@ -14,16 +14,11 @@ const express = require('express'),
 
 
 const mc = mysql.createConnection({
-  /*   host: 'localhost',
-    user: 'root',
-    port: 3306,
-    password: 'root',
-    database: 'vinlyapi' */
-  host: 'us-cdbr-iron-east-01.cleardb.net',
+  host: 'localhost',
+  user: 'root',
   port: 3306,
-  user: 'b6f38d2b26c78f',
-  password: '2b249b51',
-  database: 'vinlydemo'
+  password: 'root',
+  database: 'vinlyapi'
 });
 
 mc.connect();

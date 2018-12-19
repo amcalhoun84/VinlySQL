@@ -3,7 +3,7 @@ var db = require('./dbconnection');
 
 
 // Potentially for a later version.
-/* var Wine = function (wine) {
+var Wine = function (wine) {
   this.wine_name = wine.wine_name;
   this.winery = wine.winery;
   this.region = wine.region;
@@ -13,15 +13,15 @@ var db = require('./dbconnection');
   this.notes = wine.notes;
   this.body = wine.body;
   this.description = wine.description;
-}; */
+};
 
-var Wine = function (wine) {
+/* var Wine = function (wine) {
   this.varietal = wine.varietal;
   this.flavor_profile = wine.flavor_profile;
   this.notes = wine.notes;
   this.body = wine.body;
   this.description = wine.description;
-};
+}; */
 
 Wine.getAllWines = function getAllWines(result) {
   db.query("SELECT * FROM wine", function (err, res) {
@@ -47,20 +47,28 @@ Wine.getWineById = function getWineById(wineId, result) {
 
 };
 
-/* // Good functions, but unnecessary for demo.
+// Good functions, but unnecessary for demo.
 Wine.getWineByName = function getWineByName(wineName, result) {
   db.query("SELECT * FROM wine where wine_name = ?", [wineName], function (err, res) {
     if (err) {
-      console.log("error: ", err);
       result(null, err);
     } else {
       result(null, res);
     }
   });
+};
 
-}; */
+Wine.getWineByVarietal = function getWineByVarietal(varietal, result) {
+  db.query("SELECT * from wine where varietal = ?", [varietal], function (err, res) {
+    if (err) {
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  });
+};
 
-/* Wine.getWineByVintage = function getWineByVintage(vintage, result) {
+Wine.getWineByVintage = function getWineByVintage(vintage, result) {
   db.query('SELECT * from wine where vintage = ?', [vintage], function (err, res) {
     if (err) {
       result(null, err);
@@ -73,13 +81,31 @@ Wine.getWineByName = function getWineByName(wineName, result) {
 Wine.getWineByWinery = function getWineByWinery(winery, result) {
   db.query("SELECT * FROM wine where winery = ?", [winery], function (err, res) {
     if (err) {
-      console.log("error: ", err);
       result(null, err);
     } else {
       result(null, res);
     }
   });
+};
 
+Wine.getWineryVarietal = function getWineryVarietal(winery, varietal, result) {
+  db.query("SELECT * from wine where winery = ? and varietal = ?", [winery, varietal], function (err, res) {
+    if (err) {
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+Wine.getWineryVintageVarietal = function getWineryVintageVarietal(winery, vintage, varietal, result) {
+  db.query("SELECT * from wine where winery = ? and vintage = ? and varietal = ?", [winery, vintage, varietal], function (err, res) {
+    if (err) {
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  });
 };
 
 Wine.getWineByRegion = function getWineByRegion(wineRegion, result) {
@@ -92,8 +118,27 @@ Wine.getWineByRegion = function getWineByRegion(wineRegion, result) {
   });
 };
 
+Wine.getRegionAndVarietal = function getRegionAndVarietal(wineRegion, wineVarietal, result) {
+  db.query("SELECT * from wine where region like ? and varietal = ?", [wineRegion, wineVarietal], (err, res) => {
+    if (err) {
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  });
+};
 
- */
+Wine.getRegionAndWinery = function getRegionAndWinery(wineRegion, winery, result) {
+  console.log(wineRegion);
+  console.log(winery);
+  db.query("SELECT * from wine where region = ? and winery = ?", [wineRegion, winery], (err, res) => {
+    if (err) {
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  });
+};
 
 // will maintain this, but was meant to get separate wines of different wineries by their type, for now, just the generic varietal for our purpsoes.
 Wine.getWineByVarietal = function getWineByVarietal(varietal, result) {
@@ -138,34 +183,34 @@ Wine.createWine = function createWine(newWine, result) {
 // };
 
 Wine.updateWineById = function updateWineById(wineId, wineUpdate, result) {
-  // if (wineUpdate.wine_name) {
-  //   db.query("UPDATE wine SET wine_name = ? where wine_id = ?", [wineUpdate.wine_name, wineId], function (err, res) {
-  //     if (err) {
-  //       result(null, err);
-  //     } else {
-  //       result(null, res);
-  //     }
-  //   });
-  // }
+  if (wineUpdate.wine_name) {
+    db.query("UPDATE wine SET wine_name = ? where wine_id = ?", [wineUpdate.wine_name, wineId], function (err, res) {
+      if (err) {
+        result(null, err);
+      } else {
+        result(null, res);
+      }
+    });
+  }
 
-  // if (wineUpdate.vintage) {
-  //   db.query("UPDATE wine SET vintage = ? where wine_id = ?", [wineUpdate.vintage, wineId], function (err, res) {
-  //     if (err) {
-  //       result(null, err);
-  //     } else {
-  //       result(null, res);
-  //     }
-  //   });
-  // }
-  // if (wineUpdate.region) {
-  //   db.query("UPDATE wine SET region = ? where wine_id = ?", [wineUpdate.region, wineId], function (err, res) {
-  //     if (err) {
-  //       result(null, err);
-  //     } else {
-  //       result(null, res);
-  //     }
-  //   });
-  // }
+  if (wineUpdate.vintage) {
+    db.query("UPDATE wine SET vintage = ? where wine_id = ?", [wineUpdate.vintage, wineId], function (err, res) {
+      if (err) {
+        result(null, err);
+      } else {
+        result(null, res);
+      }
+    });
+  }
+  if (wineUpdate.region) {
+    db.query("UPDATE wine SET region = ? where wine_id = ?", [wineUpdate.region, wineId], function (err, res) {
+      if (err) {
+        result(null, err);
+      } else {
+        result(null, res);
+      }
+    });
+  }
   if (wineUpdate.varietal) {
     db.query("UPDATE wine SET varietal = ? where wine_id = ?", [wineUpdate.varietal, wineId], function (err, res) {
       if (err) {

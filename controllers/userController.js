@@ -75,3 +75,10 @@ exports.login_user = (req, res) => {
       res.send(user);
     });
 };
+
+exports.delete_user_by_id = (req, res) => {
+  User.deleteUserById(req.params.user_id, (err, user) => {
+    if (err) res.send(err);
+    res.send(user);
+  });
+};

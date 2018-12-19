@@ -7,7 +7,8 @@ module.exports = function (app) {
   const wine = require('../controllers/wineController'),
     beer = require('../controllers/beerController'),
     food = require('../controllers/foodController'),
-    user = require('../controllers/userController');
+    user = require('../controllers/userController'),
+    util = require('../controllers/utilController');
 
   // wine
   app.route('/api/v1/wine')
@@ -20,14 +21,32 @@ module.exports = function (app) {
     .put(wine.update_wine_by_id)
     .delete(wine.delete_wine_by_id); // DO NOT HAVE ANY OTHER TYPE OF DELETE!!!!
 
+  // General Paths
   app.route('/api/v1/wine/name/:wine_name')
     .get(wine.get_wine_by_name);
+
+  app.route('/api/v1/wine/varietal/:varietal')
+    .get(wine.get_wine_by_varietal);
 
   app.route('/api/v1/wine/winery/:winery')
     .get(wine.get_wine_by_winery);
 
   app.route('/api/v1/wine/region/:wine_region')
-    .get(wine.get_wine_by_winery);
+    .get(wine.get_wine_by_region);
+
+  // Combined Paths
+
+  app.route('/api/v1/wine/winery/:winery/varietal/:varietal')
+    .get(wine.get_wine_by_winery_varietal);
+
+  app.route('/api/v1/wine/winery/:winery/vintage/:vintage/varietal/:varietal')
+    .get(wine.get_winery_vintage_varietal);
+
+  app.route('/api/v1/wine/region/:wine_region/varietal/:varietal')
+    .get(wine.get_wine_varietal_and_region);
+
+  app.route('/api/v1/wine/region/:wine_region/winery/:winery')
+    .get(wine.get_wine_region_and_winery);
 
   app.route('/api/v1/wine/like/:wine_like')
     .get(wine.get_wine_by_like);
@@ -47,8 +66,8 @@ module.exports = function (app) {
     .put(beer.update_beer_by_id)
     .delete(beer.delete_beer_by_id); // DO NOT HAVE ANY OTHER TYPE OF DELETE!!!!
 
-  /* app.route('/api/v1/beer/all/:beer_id')
-    .put(beer.update_beer_all_by_id); */
+  app.route('/api/v1/beer/all/:beer_id')
+    .put(beer.update_beer_all_by_id);
 
   app.route('/api/v1/beer/name/:beer_name')
     .get(beer.get_beer_by_name);
@@ -58,6 +77,12 @@ module.exports = function (app) {
 
   app.route('/api/v1/beer/region/:beer_region')
     .get(beer.get_beer_by_region);
+
+  app.route('/api/v1/beer/region/:beer_region/brewery/:brewery')
+    .get(beer.get_beer_region_and_brewery);
+
+  app.route('/api/v1/beer/brewery/:brewery/type/:beer_type')
+    .get(beer.get_brewery_and_type);
 
   app.route('/api/v1/beer/match/:beer_type')
     .get(beer.match_beer_food);
@@ -85,7 +110,8 @@ module.exports = function (app) {
     .post(user.register_user);
 
   app.route('/api/v1/user/id/:user_id')
-    .get(user.get_user_by_id);
+    .get(user.get_user_by_id)
+    .delete(user.delete_user_by_id);
 
   app.route('/api/v1/user/id/:user_name')
     .get(user.get_user_by_un);
@@ -95,4 +121,13 @@ module.exports = function (app) {
 
   app.route('/api/v1/user/login/')
     .post(user.login_user);
+
+  // API Utilities
+
+  app.route('/api/v1/util/varietals') // get a list of all the varietals
+    .get(util.get_varietals);
+  //.post(util.add_varietal); // we got most of the relevant ones, but in case a new one if invented...
+
+  app.route('/api/v1/util/beer_types')
+    .get(util.get_beer_types);
 };
