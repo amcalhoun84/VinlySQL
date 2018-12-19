@@ -12,7 +12,7 @@ const express = require('express'),
   logger = require('morgan'),
   port = process.env.PORT || 4000;
 
-
+// local dev testing
 const mc = mysql.createConnection({
   host: 'localhost',
   user: 'root',

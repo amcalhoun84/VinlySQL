@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var mysql = require('mysql');
 
 //dev
