@@ -27,28 +27,33 @@ exports.get_user_by_un = (req, res) => {
 };
 
 
-exports.register_user = function (req, res) {
+exports.register_user = (req, res) => {
   var new_user = new User(req.body);
+  new_user.DOB = v.parseDOB(new_user.DOB);
+
   if (!v.isValidEmail(new_user.email)) {
     res.status(400).send({
       error: true, message: "BAD USER EMAIL"
     });
+    return;
   }
   if (!v.isValidId(new_user.username)) {
     res.res.status(400).send({
       error: true, message: "BAD USER ID"
     });
+    return;
   }
   if (!v.isValidPassword(new_user.password)) {
     res.status(400).send({
       error: true, message: "BAD USER PASSWORD"
     });
+    return;
   }
-  if (!new_user.username) res.status(400).send({ error: true, message: "User needs a user name!" });
-  if (!new_user.email) res.status(400).send({ error: true, message: "User needs an email." });
-  if (!new_user.password) res.status(400).send({ error: true, message: "User needs a password!" });
-  if (!new_user.first_name) res.status(400).send({ error: true, message: "User needs a first name!" });
-  if (!new_user.last_name) res.status(400).send({ error: true, message: "User needs a last name!" });
+  if (!new_user.username) { res.status(400).send({ error: true, message: "User needs a user name!" }); return; }
+  if (!new_user.email) { res.status(400).send({ error: true, message: "User needs an email." }); return; }
+  if (!new_user.password) { res.status(400).send({ error: true, message: "User needs a password!" }); return; }
+  if (!new_user.country) { res.status(400).send({ error: true, message: "User needs a home country!" }); return; }
+  if (!new_user.DOB) { res.status(400).send({ error: true, message: "User needs a DOB!" }); return; }
 
   else {
     User.registerUser(new_user, (err, user) => {
@@ -59,18 +64,9 @@ exports.register_user = function (req, res) {
   }
 };
 
-// Utility function, can be removed once alpha goes live
-exports.check_password = (req, res) => {
-  User.checkPassword(req.params.username, req.params.password, function (err, user) {
-    console.log(req.params.username);
-    if (err) res.send(err);
-    res.send(user);
-  });
-};
-
 exports.login_user = (req, res) => {
   User.loginUser(req.body.username, req.body.password,
-    function (err, user) {
+    (err, user) => {
       if (err) res.send(err);
       res.send(user);
     });

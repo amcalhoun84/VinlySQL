@@ -5,8 +5,8 @@ const assert = require('assert'),
   expect = require('chai').expect,
   v = require('./validators');
 
-describe('Server Side Validation Checks', function () {
-  it('should return true if anything is valid...', function () {
+describe('Server Side Validation Checks', () => {
+  it('should return true if anything is valid...', () => {
     assert.equal(v.isDigit(1), true);
     assert.equal(v.isSpecial('!'), true);
     assert.equal(v.isLower('b'), true);
@@ -34,4 +34,13 @@ it('should return true if user id is valid, false is invalid', function () {
 it('should resolve a valid email', () => {
   var validEmail = v.isValidEmail('andrew.m.calhoun@gmail.com');
   expect(validEmail).to.be.true;
+});
+
+describe('dates. lots and lots of dates...', () => {
+  it('should return true', () => {
+    var parsedDate = v.parseDOB('06/11/1984');
+    //console.log(parsedDate);
+    parsedDate.should.equal('1984/06/11');
+    parsedDate.should.not.equal('1984/05/11');
+  });
 });

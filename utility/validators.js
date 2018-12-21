@@ -1,33 +1,36 @@
 'use strict';
+
+var moment = require('moment');
+
 // utility apps
-exports.isDigit = function (c) {
+exports.isDigit = c => {
   return /\d/.test(c);
 };
 
-exports.isUpper = function (c) {
+exports.isUpper = c => {
   return /[A-Z]/.test(c);
 };
-exports.isLower = function (c) {
+exports.isLower = c => {
   return /[a-z]/.test(c);
 };
 
-exports.isSpecial = function (c) {
+exports.isSpecial = c => {
   return /[^A-Za-z0-9_-]/.test(c);
 
 };
 
-exports.isValidId = function (userId, err, res) {
+exports.isValidId = (userId, err, res) => {
   if (!userId.length) return false;
   return /^\w+$/.test(userId);
 };
 
-exports.isValidEmail = function (userEmail, err, res) {
+exports.isValidEmail = (userEmail, err, res) => {
   if (!userEmail.length) return false;
   return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);
 
 };
 
-exports.isValidPassword = function (userPassword, err, res) {
+exports.isValidPassword = (userPassword, err, res) => {
   if (!userPassword) res.json("WE NEED PASSWORD!!!!!!");
   if (userPassword.length < 8) return false;
   if (userPassword.length > 100) return false;
@@ -39,19 +42,19 @@ exports.isValidPassword = function (userPassword, err, res) {
 
 
   // is redundant, but useful when doing tests
-  function isDigit(c) {
+  let isDigit = c => {
     return /\d/.test(c);
   };
 
-  function isUpper(c) {
+  let isUpper = c => {
     return /[A-Z]/.test(c);
   };
 
-  function isLower(c) {
+  let isLower = c => {
     return /[a-z]/.test(c);
   };
 
-  function isSpecial(c) {
+  let isSpecial = c => {
     return /[^A-Za-z0-9_-]/.test(c);
   };
 
@@ -67,3 +70,8 @@ exports.isValidPassword = function (userPassword, err, res) {
 
   return special && upperCase && lowerCase && number;
 };
+
+exports.parseDOB = date => {
+  return moment(date).format("YYYY/MM/DD");
+
+}

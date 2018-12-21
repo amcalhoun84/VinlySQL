@@ -5,12 +5,12 @@ const v = require('../utility/validators');
 var Beer = function (beer) {
   this.beer_name = beer.beer_name;
   this.brewery = beer.brewery;
-  this.type = beer.beer_type;
+  this.beer_type = beer.beer_type;
   this.region = beer.region;
   this.notes = beer.notes;
   this.intensity = beer.intensity;
   this.color = beer.color;
-  this.description = this.description;
+  this.description = beer.description;
 };
 
 // var Beer = function (beer) {
@@ -21,8 +21,8 @@ var Beer = function (beer) {
 //   this.description = this.description;
 // };
 
-Beer.getAllBeer = function getAllBeer(result) {
-  db.query("SELECT * FROM beer", function (err, res) {
+Beer.getAllBeer = (result) => {
+  db.query("SELECT * FROM beer", (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -31,8 +31,8 @@ Beer.getAllBeer = function getAllBeer(result) {
   });
 };
 
-Beer.getBeerByName = function getBeerByName(beerName, result) {
-  db.query("SELECT * from beer where beer_name = ?", beerName, function (err, res) {
+Beer.getBeerByName = (beerName, result) => {
+  db.query("SELECT * from beer where beer_name = ?", beerName, (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -41,8 +41,8 @@ Beer.getBeerByName = function getBeerByName(beerName, result) {
   });
 };
 
-Beer.getBeerById = function getBeerById(beerId, result) {
-  db.query("SELECT * from beer where beer_id = ?", [beerId], function (err, res) {
+Beer.getBeerById = (beerId, result) => {
+  db.query("SELECT * from beer where beer_id = ?", [beerId], (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -51,8 +51,8 @@ Beer.getBeerById = function getBeerById(beerId, result) {
   });
 };
 
-Beer.getBeerByBrewery = function getBeerByBrwery(brewery, result) {
-  db.query("SELECT * from beer where brewery = ?", brewery, function (err, res) {
+Beer.getBeerByBrewery = (brewery, result) => {
+  db.query("SELECT * from beer where brewery = ?", brewery, (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -61,8 +61,8 @@ Beer.getBeerByBrewery = function getBeerByBrwery(brewery, result) {
   });
 };
 
-Beer.getBeerByLike = function getBeerByLike(beerLike, result) {
-  db.query("SELECT * from beer where beer_type like = ?", '%' + beerLike + '%', function (err, res) {
+Beer.getBeerByLike = (beerLike, result) => {
+  db.query("SELECT * from beer where beer_type like = ?", '%' + beerLike + '%', (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -71,8 +71,8 @@ Beer.getBeerByLike = function getBeerByLike(beerLike, result) {
   });
 };
 
-Beer.getBeerByIntensity = function getBeerByLike(beerIntensity, result) {
-  db.query("SELECT * from beer where beer_type like = ?", '%' + beerIntensity + '%', function (err, res) {
+Beer.getBeerByIntensity = (beerIntensity, result) => {
+  db.query("SELECT * from beer where beer_type like = ?", '%' + beerIntensity + '%', (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -81,8 +81,8 @@ Beer.getBeerByIntensity = function getBeerByLike(beerIntensity, result) {
   });
 };
 
-Beer.getBeerByNotes = function getBeerByLike(beerNotes, result) {
-  db.query("SELECT * from beer where beer_type like = ?", '%' + beerNotes + '%', function (err, res) {
+Beer.getBeerByNotes = (beerNotes, result) => {
+  db.query("SELECT * from beer where beer_type like = ?", '%' + beerNotes + '%', (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -92,7 +92,7 @@ Beer.getBeerByNotes = function getBeerByLike(beerNotes, result) {
 };
 
 
-Beer.getBeerByColor = function getBeerByColor(beerColor, result) {
+Beer.getBeerByColor = (beerColor, result) => {
   db.query("SELECT * from beer where color = ?", [beerColor], function (err, res) {
     if (err) {
       result(null, err);
@@ -104,8 +104,8 @@ Beer.getBeerByColor = function getBeerByColor(beerColor, result) {
 
 
 
-Beer.getBeerByRegion = function getBeerByRegion(beerRegion, result) {
-  db.query("SELECT * from beer where region = ?", beerRegion, function (err, res) {
+Beer.getBeerByRegion = (beerRegion, result) => {
+  db.query("SELECT * from beer where region = ?", beerRegion, (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -114,8 +114,8 @@ Beer.getBeerByRegion = function getBeerByRegion(beerRegion, result) {
   });
 };
 
-Beer.getRegionAndBrewery = function getRegionAndBrewery(beerRegion, brewery, result) {
-  db.query("SELECT * from beer where region = ? and brewery = ?", [beerRegion, brewery], function (err, res) {
+Beer.getRegionAndBrewery = (beerRegion, brewery, result) => {
+  db.query("SELECT * from beer where region = ? and brewery = ?", [beerRegion, brewery], (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -124,8 +124,8 @@ Beer.getRegionAndBrewery = function getRegionAndBrewery(beerRegion, brewery, res
   });
 };
 
-Beer.getBreweryAndType = function getBreweryAndType(brewery, beerType, result) {
-  db.query("SELECT * from beer where brewery = ? and beer_type = ?", [brewery, beerType], function (err, res) {
+Beer.getBreweryAndType = (brewery, beerType, result) => {
+  db.query("SELECT * from beer where brewery = ? and beer_type = ?", [brewery, beerType], (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -134,8 +134,8 @@ Beer.getBreweryAndType = function getBreweryAndType(brewery, beerType, result) {
   });
 };
 
-Beer.getBeerByColor = function getBeerByColor(color, result) {
-  db.query("SELECT * from beer where color = ?", color, function (err, res) {
+Beer.getBeerByColor = (color, result) => {
+  db.query("SELECT * from beer where color = ?", color, (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -144,8 +144,8 @@ Beer.getBeerByColor = function getBeerByColor(color, result) {
   });
 };
 
-Beer.getBeerByIntensity = function getBeerByIntensity(intensity, result) {
-  db.query("SELECT * from beer where intensity = ?", intensity, function (err, res) {
+Beer.getBeerByIntensity = (intensity, result) => {
+  db.query("SELECT * from beer where intensity = ?", intensity, (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -156,8 +156,8 @@ Beer.getBeerByIntensity = function getBeerByIntensity(intensity, result) {
 
 // Utility (Creation, Deletion, Updates)
 
-Beer.createBeer = function createBeer(newBeer, result) {
-  db.query("INSERT INTO beer set ?", newBeer, function (err, res) {
+Beer.createBeer = (newBeer, result) => {
+  db.query("INSERT INTO beer set ?", newBeer, (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -177,9 +177,9 @@ Beer.createBeer = function createBeer(newBeer, result) {
 
 // Updates - ugly as sin, I don't like this... there has to be a cleaner way to do this...
 
-Beer.updateBeerById = function updateBeerById(beerId, beerUpdate, result) {
+Beer.updateBeerById = (beerId, beerUpdate, result) => {
   if (beerUpdate.beer_name) {
-    db.query("UPDATE beer SET beer_name = ? where beer_id = ?", [beerUpdate.beer_name, beerId], function (err, res) {
+    db.query("UPDATE beer SET beer_name = ? where beer_id = ?", [beerUpdate.beer_name, beerId], (err, res) => {
       if (err) {
         result(null, err);
       } else {
@@ -188,7 +188,7 @@ Beer.updateBeerById = function updateBeerById(beerId, beerUpdate, result) {
     });
   }
   if (beerUpdate.brewery) {
-    db.query("UPDATE beer SET brewery = ? where beer_id = ?", [beerUpdate.brewery, beerId], function (err, res) {
+    db.query("UPDATE beer SET brewery = ? where beer_id = ?", [beerUpdate.brewery, beerId], (err, res) => {
       if (err) {
         result(null, err);
       } else {
@@ -198,7 +198,7 @@ Beer.updateBeerById = function updateBeerById(beerId, beerUpdate, result) {
   }
 
   if (beerUpdate.region) {
-    db.query("UPDATE beer SET region = ? where beer_id = ?", [beerUpdate.region, beerId], function (err, res) {
+    db.query("UPDATE beer SET region = ? where beer_id = ?", [beerUpdate.region, beerId], (err, res) => {
       if (err) {
         result(null, err);
       } else {
@@ -207,7 +207,7 @@ Beer.updateBeerById = function updateBeerById(beerId, beerUpdate, result) {
     });
   }
   if (beerUpdate.type) {
-    db.query("UPDATE beer SET beer_type = ? where beer_id = ?", [beerUpdate.type, beerId], function (err, res) {
+    db.query("UPDATE beer SET beer_type = ? where beer_id = ?", [beerUpdate.type, beerId], (err, res) => {
       if (err) {
         result(null, err);
       } else {
@@ -217,7 +217,7 @@ Beer.updateBeerById = function updateBeerById(beerId, beerUpdate, result) {
   }
 
   if (beerUpdate.intensity) {
-    db.query("UPDATE beer SET intensity = ? where beer_id = ?", [beerUpdate.intensity, beerId], function (err, res) {
+    db.query("UPDATE beer SET intensity = ? where beer_id = ?", [beerUpdate.intensity, beerId], (err, res) => {
       if (err) {
         result(null, err);
       } else {
@@ -227,7 +227,7 @@ Beer.updateBeerById = function updateBeerById(beerId, beerUpdate, result) {
   }
 
   if (beerUpdate.notes) {
-    db.query("UPDATE beer SET notes = ? where beer_id = ?", [beerUpdate.notes, beerId], function (err, res) {
+    db.query("UPDATE beer SET notes = ? where beer_id = ?", [beerUpdate.notes, beerId], (err, res) => {
       if (err) {
         result(null, err);
       } else {
@@ -237,7 +237,7 @@ Beer.updateBeerById = function updateBeerById(beerId, beerUpdate, result) {
   }
 
   if (beerUpdate.color) {
-    db.query("UPDATE beer SET color = ? where beer_id = ?", [beerUpdate.color, beerId], function (err, res) {
+    db.query("UPDATE beer SET color = ? where beer_id = ?", [beerUpdate.color, beerId], (err, res) => {
       if (err) {
         result(null, err);
       } else {
@@ -247,7 +247,7 @@ Beer.updateBeerById = function updateBeerById(beerId, beerUpdate, result) {
   }
 
   if (beerUpdate.description) {
-    db.query("UPDATE beer SET description = ? where beer_id = ?", [beerUpdate.description, beerId], function (err, res) {
+    db.query("UPDATE beer SET description = ? where beer_id = ?", [beerUpdate.description, beerId], (err, res) => {
       if (err) {
         result(null, err);
       } else {
@@ -260,15 +260,15 @@ Beer.updateBeerById = function updateBeerById(beerId, beerUpdate, result) {
 
 // MATCH
 
-Beer.matchBeerToFood = function matchBeerToFood(beerType, result) {
+Beer.matchBeerToFood = (beerType, result) => {
   db.query("SELECT food_type from food left join beer_food_pairing bfp on food.food_id = bfp.food_id  left join beer b on b.beer_id = bfp.beer_id where b.beer_type = ?", beerType, (err, res) => {
     if (err) result(null, err);
     else result(null, res)
   });
 };
 
-Beer.deleteBeer = function deleteBeer(beerId, result) {
-  db.query("DELETE from beer where beer_id = ?", beerId, function (err, res) {
+Beer.deleteBeer = (beerId, result) => {
+  db.query("DELETE from beer where beer_id = ?", beerId, (err, res) => {
     if (err) result(null, err);
     else result(null, res);
   });

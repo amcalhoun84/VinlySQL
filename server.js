@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 //app.use(cors);
 
 
-app.get('/', function (req, res, next) {
+app.get('/', (req, res, next) => {
   res.send('Welcome to the Vin.ly API');
   console.log("Hi!");
 });

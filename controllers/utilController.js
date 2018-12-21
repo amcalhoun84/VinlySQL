@@ -18,3 +18,11 @@ exports.get_beer_types = (req, res) => {
     res.send(util);
   });
 };
+
+exports.get_food_type = (req, res) => {
+  Util.getFoodType((err, util) => {
+    if (err)
+      res.send(err);
+    res.send(util);
+  });
+};

@@ -116,9 +116,6 @@ module.exports = function (app) {
   app.route('/api/v1/user/id/:user_name')
     .get(user.get_user_by_un);
 
-  app.route('/api/v1/user/password_check/:username/:password')
-    .get(user.check_password);
-
   app.route('/api/v1/user/login/')
     .post(user.login_user);
 
@@ -130,4 +127,7 @@ module.exports = function (app) {
 
   app.route('/api/v1/util/beer_types')
     .get(util.get_beer_types);
+
+  app.route('/api/v1/util/food_types')
+    .get(util.get_food_type);
 };

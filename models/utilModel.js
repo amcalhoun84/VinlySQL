@@ -3,8 +3,8 @@ var db = require('./dbconnection');
 
 var Util = function (util) { };
 
-Util.getVarietals = function getVarietals(result) {
-  db.query("SELECT * FROM util_varietals", function (err, res) {
+Util.getVarietals = (result) => {
+  db.query("SELECT * FROM util_varietals", (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -13,8 +13,8 @@ Util.getVarietals = function getVarietals(result) {
   });
 };
 
-Util.getBeerType = function getBeerType(result) {
-  db.query("SELECT * from util_beer_type", function (err, res) {
+Util.getBeerType = (result) => {
+  db.query("SELECT * from util_beer_type", (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -23,14 +23,14 @@ Util.getBeerType = function getBeerType(result) {
   });
 };
 
-/* Beer.getAllBeer = function getAllBeer(result) {
-  db.query("SELECT * FROM beer", function (err, res) {
+Util.getFoodType = (result) => {
+  db.query("SELECT * from util_food_type", (err, res) => {
     if (err) {
       result(null, err);
     } else {
       result(null, res);
     }
   });
-}; */
+};
 
 module.exports = Util;
