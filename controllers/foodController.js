@@ -50,7 +50,7 @@ exports.create_food = (req, res) => {
   if (!new_food.food_name) { res.status(400).send({ error: true, message: "Tasty stuff needs a name!" }); return; }
   if (!new_food.primary_flavor) { res.status(400).send({ error: true, message: "Tasty stuff needs a flavor!" }); return; }
   if (!new_food.food_type) { res.status(400).send({ error: true, message: "Tasty stuff needs a type!" }); return; }
-  if (!new_food.food_grouping) { res.status(400).send({ error: true, message: "Tasty stuff needs a grouping!" }); return; }
+  if (!new_food.food_region) { res.status(400).send({ error: true, message: "Tasty stuff needs a grouping!" }); return; }
   if (!new_food.description) { res.status(400).send({ error: true, message: "Tasty stuff needs a description!" }); return; }
 
   Food.createFood(new_food, function (err, food) {

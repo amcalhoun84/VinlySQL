@@ -6,7 +6,7 @@ var Food = function (food) {
   this.food_name = food.food_name;
   this.food_type = food.food_type;
   this.primary_flavor = food.primary_flavor;
-  this.food_grouping = food.food_grouping;
+  this.food_region = food.food_region;
   this.description = food.description;
 };
 

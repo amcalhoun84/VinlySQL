@@ -4,7 +4,7 @@ const Cheese = require('../models/cheeseModel'),
   db = require('../models/dbconnection');
 
 exports.get_cheeses = (req, res) => {
-  Cheese.getCheeseByType((err, cheese) => {
+  Cheese.getAllCheeses((err, cheese) => {
     if (err)
       res.send(err);
     res.send(cheese);
@@ -12,7 +12,7 @@ exports.get_cheeses = (req, res) => {
 };
 
 exports.get_cheese_by_type = (req, res) => {
-  Cheese.getCheeseByType((err, cheese) => {
+  Cheese.getCheeseByType(req.params.cheese_type, (err, cheese) => {
     if (err)
       res.send(err);
     res.send(cheese);
@@ -20,14 +20,14 @@ exports.get_cheese_by_type = (req, res) => {
 }
 
 exports.get_cheese_by_texture = (req, res) => {
-  Cheese.getCheeseByTexture((err, cheese) => {
+  Cheese.getCheeseByTexture(req.params.texture, (err, cheese) => {
     if (err) res.send(err);
     res.send(cheese);
   });
 };
 
 exports.get_cheese_by_strength = (req, res) => {
-  Cheese.getCheeseByStrength((err, cheese) => {
+  Cheese.getCheeseByStrength(req.params.strength, (err, cheese) => {
     if (err) res.send(err);
     res.send(cheese);
   });

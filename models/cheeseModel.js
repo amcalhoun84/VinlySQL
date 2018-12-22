@@ -20,7 +20,7 @@ Cheese.getAllCheeses = result => {
 };
 
 Cheese.getCheeseByType = (cheeseType, result) => {
-  db.query("SELECT * from food_cheeses where cheese_type = ?", [cheeseType], (err, res) => {
+  db.query("SELECT * from food_cheeses where cheese_type like ?", ['%' + cheeseType + '%'], (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -30,7 +30,7 @@ Cheese.getCheeseByType = (cheeseType, result) => {
 };
 
 Cheese.getCheeseByTexture = (cheeseTexture, result) => {
-  db.query("SELECT * from food_cheeses where texture = ?", [cheeseTexture], (err, res) => {
+  db.query("SELECT * from food_cheeses where texture like ?", ['%' + cheeseTexture + '%'], (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -40,7 +40,7 @@ Cheese.getCheeseByTexture = (cheeseTexture, result) => {
 };
 
 Cheese.getCheeseByStrength = (cheeseStrength, result) => {
-  db.query("SELECT * from food_cheeses where strength = ?", [cheeseStrength], (err, res) => {
+  db.query('SELECT * from food_cheeses where strength like ?', ['%' + cheeseStrength + '%'], (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -50,14 +50,23 @@ Cheese.getCheeseByStrength = (cheeseStrength, result) => {
 };
 
 Cheese.createCheese = (newCheese, result) => {
-  db.query("INSERT INTO food_cheeses set = ?", newCheese, (err, res) => {
+  db.query("INSERT INTO food_cheeses set ?", newCheese, (err, res) => {
+    if (err) {
+      result(null, err);
+    } else {
+      result(null, res.insertId);
+    }
+  });
+};
+
+Cheese.deleteCheese = (cheeseId, result) => {
+  db.query('DELETE FROM CHEESE where cheese_id = ?', cheeseId, (err, res) => {
     if (err) {
       result(null, err);
     } else {
       result(null, res);
     }
   });
-};
-
+}
 
 module.exports = Cheese;

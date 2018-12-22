@@ -261,7 +261,7 @@ Beer.updateBeerById = (beerId, beerUpdate, result) => {
 // MATCH
 
 Beer.matchBeerToFood = (beerType, result) => {
-  db.query("SELECT food_type from food left join beer_food_pairing bfp on food.food_id = bfp.food_id  left join beer b on b.beer_id = bfp.beer_id where b.beer_type = ?", beerType, (err, res) => {
+  db.query("SELECT food_type from util_food_types left join beer_food_pairing bfp on util_food_types.food_id = bfp.food_id  left join util_beer_types b on b.beer_id = bfp.beer_id where b.beer_type = ?", beerType, (err, res) => {
     if (err) result(null, err);
     else result(null, res)
   });

@@ -8,6 +8,7 @@ module.exports = function (app) {
     beer = require('../controllers/beerController'),
     food = require('../controllers/foodController'),
     user = require('../controllers/userController'),
+    cheese = require('../controllers/cheeseController'),
     util = require('../controllers/utilController');
 
   // wine
@@ -118,6 +119,22 @@ module.exports = function (app) {
 
   app.route('/api/v1/user/login/')
     .post(user.login_user);
+
+  // Cheese
+
+  app.route('/api/v1/cheese')
+    .get(cheese.get_cheeses)
+    .post(cheese.create_cheese);
+
+  app.route('/api/v1/cheese/texture/:texture')
+    .get(cheese.get_cheese_by_texture);
+
+  app.route('/api/v1/cheese/strength/:strength')
+    .get(cheese.get_cheese_by_strength);
+
+  app.route('/api/v1/cheese/type/:cheese_type')
+    .get(cheese.get_cheese_by_type);
+
 
   // API Utilities
 
