@@ -1,5 +1,6 @@
 'use strict';
 var db = require('./dbconnection');
+// var sequelize = require('./sequelize'); // add an ORM later for easier expansion
 
 
 // Potentially for a later version.
@@ -15,13 +16,27 @@ var Wine = function (wine) {
   this.description = wine.description;
 };
 
-/* var Wine = function (wine) {
-  this.varietal = wine.varietal;
-  this.flavor_profile = wine.flavor_profile;
-  this.notes = wine.notes;
-  this.body = wine.body;
-  this.description = wine.description;
-}; */
+// future model if sequelize is integrated
+/* module.exports = (sequelize, type) => {
+  return sequelize.define('wine', {
+    wine_id: {
+      type: type.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    wine_name: type.STRING,
+    winery: type.STRING,
+    varietal: type.STRING,
+    vintage: type.STRING,
+    region: type.STRING,
+    varietal: type.STRING,
+    flavor_profile: type.STRING,
+    notes: type.STRING,
+    body: type.STRING,
+    description: type.STRING
+  })
+}
+ */
 
 Wine.getAllWines = function getAllWines(result) {
   db.query("SELECT * FROM wine", function (err, res) {

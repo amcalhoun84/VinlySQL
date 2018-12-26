@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-let CONFIG = {}   // make this global to use all over the applicaiton
+let CONFIG = {};  // make this global to use all over the applicaiton
 
 CONFIG.app = process.env.APP || 'dev';
 CONFIG.app = process.env.PORT || '4000';

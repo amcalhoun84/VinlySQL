@@ -13,13 +13,25 @@ var Beer = function (beer) {
   this.description = beer.description;
 };
 
-// var Beer = function (beer) {
-//   this.beer_type = beer.beer_type;
-//   this.notes = beer.notes;
-//   this.intensity = beer.intensity;
-//   this.color = beer.color;  // color does vary from brewer to brewer...
-//   this.description = this.description;
-// };
+// future model if sequelize is integrated
+/* module.exports = (sequelize, type) => {
+  return sequelize.define('beer', {
+    beer_id: {
+      type: type.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    beer_name: type.STRING,
+    brewery: type.STRING,
+    region: type.STRING,
+    beer_type: type.STRING,
+    notes: type.STRING,
+    intensity: type.STRING,
+    color: type.STRING,
+    description: type.STRING
+  })
+}
+ */
 
 Beer.getAllBeer = (result) => {
   db.query("SELECT * FROM beer", (err, res) => {
@@ -165,15 +177,6 @@ Beer.createBeer = (newBeer, result) => {
     }
   });
 };
-
-
-
-/* Beer.updateBeerByIdAll = function updateBeerByIdAll(beerId, beerUpdate, result) { // requires the whole thing...
-  db.query("UPDATE beer SET beer_name = ?, brewery = ?, beer_type = ?, region = ?, notes = ?, color = ?, intensity = ?, description = ? where beer_id = ?", [beerUpdate.beer_name, beerUpdate.brewery, beerUpdate.beer_type, beerUpdate.region, beerUpdate.notes, beerUpdate.color, beerUpdate.intensity, beerUpdate.description, beerId], function (err, nes) {
-    if (err) result(null, err);
-    else result(null, res);
-  });
-}; */
 
 // Updates - ugly as sin, I don't like this... there has to be a cleaner way to do this...
 

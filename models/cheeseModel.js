@@ -9,6 +9,22 @@ var Cheese = function (cheese) {
   this.description = cheese.description;
 };
 
+// future model if sequelize is integrated
+/* module.exports = (sequelize, type) => {
+  return sequelize.define('cheese', {
+    cheese_id: {
+      type: type.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    cheese_type: type.STRING,
+    strength: type.STRING,
+    texture: type.STRING,
+    description: type.STRING
+  })
+}
+ */
+
 Cheese.getAllCheeses = result => {
   db.query("SELECT * from food_cheeses", (err, res) => {
     if (err) {

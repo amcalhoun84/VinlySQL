@@ -10,141 +10,29 @@ module.exports = function (app) {
     user = require('../controllers/userController'),
     cheese = require('../controllers/cheeseController'),
     util = require('../controllers/utilController');
+  //FMWine = require('../models/FMWine');
 
-  // wine
-  app.route('/api/v1/wine')
-    .get(wine.list_all_wines)
-    .post(wine.create_wine);
-  //.delete(NUKE!!!!)
+  // wine moved
 
-  app.route('/api/v1/wine/:wine_id')
-    .get(wine.get_wine_by_id)
-    .put(wine.update_wine_by_id)
-    .delete(wine.delete_wine_by_id); // DO NOT HAVE ANY OTHER TYPE OF DELETE!!!!
+  // beer moved
 
-  // General Paths
-  app.route('/api/v1/wine/name/:wine_name')
-    .get(wine.get_wine_by_name);
+  // food moved
 
-  app.route('/api/v1/wine/varietal/:varietal')
-    .get(wine.get_wine_by_varietal);
+  // users moved
 
-  app.route('/api/v1/wine/winery/:winery')
-    .get(wine.get_wine_by_winery);
-
-  app.route('/api/v1/wine/region/:wine_region')
-    .get(wine.get_wine_by_region);
-
-  // Combined Paths
-
-  app.route('/api/v1/wine/winery/:winery/varietal/:varietal')
-    .get(wine.get_wine_by_winery_varietal);
-
-  app.route('/api/v1/wine/winery/:winery/vintage/:vintage/varietal/:varietal')
-    .get(wine.get_winery_vintage_varietal);
-
-  app.route('/api/v1/wine/region/:wine_region/varietal/:varietal')
-    .get(wine.get_wine_varietal_and_region);
-
-  app.route('/api/v1/wine/region/:wine_region/winery/:winery')
-    .get(wine.get_wine_region_and_winery);
-
-  app.route('/api/v1/wine/like/:wine_like')
-    .get(wine.get_wine_by_like);
-
-  app.route('/api/v1/wine/match/:varietal')
-    .get(wine.match_wine_food);
-
-  //beer
-
-  app.route('/api/v1/beer')
-    .get(beer.list_all_beer)
-    .post(beer.create_beer);
-  //.delete(NUKE!!!!);
-
-  app.route('/api/v1/beer/:beer_id')
-    .get(beer.get_beer_by_id)
-    .put(beer.update_beer_by_id)
-    .delete(beer.delete_beer_by_id); // DO NOT HAVE ANY OTHER TYPE OF DELETE!!!!
-
-  app.route('/api/v1/beer/all/:beer_id')
-    .put(beer.update_beer_all_by_id);
-
-  app.route('/api/v1/beer/name/:beer_name')
-    .get(beer.get_beer_by_name);
-
-  app.route('/api/v1/beer/brewery/:brewery')
-    .get(beer.get_beer_by_brewery);
-
-  app.route('/api/v1/beer/region/:beer_region')
-    .get(beer.get_beer_by_region);
-
-  app.route('/api/v1/beer/region/:beer_region/brewery/:brewery')
-    .get(beer.get_beer_region_and_brewery);
-
-  app.route('/api/v1/beer/brewery/:brewery/type/:beer_type')
-    .get(beer.get_brewery_and_type);
-
-  app.route('/api/v1/beer/match/:beer_type')
-    .get(beer.match_beer_food);
-
-  // food
-  app.route('/api/v1/food')
-    .get(food.list_all_food)
-    .post(food.create_food);
-
-  app.route('/api/v1/food/:food_id')
-    .get(food.get_food_by_id)
-    //.put(food.update_food_by_id);
-    .delete(food.delete_food_by_id);
-
-  app.route('/api/v1/food/match/beer/:food_type')
-    .get(food.match_food_beer);
-
-
-  app.route('/api/v1/food/match/wine/:food_type')
-    .get(food.match_food_wine);
-
-  // users
-  app.route('/api/v1/user/')
-    .get(user.list_all_users)
-    .post(user.register_user);
-
-  app.route('/api/v1/user/id/:user_id')
-    .get(user.get_user_by_id)
-    .delete(user.delete_user_by_id);
-
-  app.route('/api/v1/user/id/:user_name')
-    .get(user.get_user_by_un);
-
-  app.route('/api/v1/user/login/')
-    .post(user.login_user);
-
-  // Cheese
-
-  app.route('/api/v1/cheese')
-    .get(cheese.get_cheeses)
-    .post(cheese.create_cheese);
-
-  app.route('/api/v1/cheese/texture/:texture')
-    .get(cheese.get_cheese_by_texture);
-
-  app.route('/api/v1/cheese/strength/:strength')
-    .get(cheese.get_cheese_by_strength);
-
-  app.route('/api/v1/cheese/type/:cheese_type')
-    .get(cheese.get_cheese_by_type);
-
+  // Cheese moved
 
   // API Utilities
+  /*
+    app.route('/api/v1/util/varietals') // get a list of all the varietals
+      .get(util.get_varietals);
+    //.post(util.add_varietal); // we got most of the relevant ones, but in case a new one if invented...
+  
+    app.route('/api/v1/util/beer_types')
+      .get(util.get_beer_types);
+  
+    app.route('/api/v1/util/food_types')
+      .get(util.get_food_type); */
 
-  app.route('/api/v1/util/varietals') // get a list of all the varietals
-    .get(util.get_varietals);
-  //.post(util.add_varietal); // we got most of the relevant ones, but in case a new one if invented...
-
-  app.route('/api/v1/util/beer_types')
-    .get(util.get_beer_types);
-
-  app.route('/api/v1/util/food_types')
-    .get(util.get_food_type);
+  // sequelize will be v2
 };
