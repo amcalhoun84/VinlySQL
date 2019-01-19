@@ -1,8 +1,14 @@
 'use strict';
-
 const bcrypt = require('bcrypt'),
   v = require('../utility/validators'),
-  db = require('../models/dbconnection');
+  db = require('../models/dbconnection'),
+  config = require('../config/config'),
+  passport = require('passport'),
+  localStrategy = require('passport-local'),
+  JWTStrategy = require('passport-jwt').Strategy,
+  ExtractJWT = require('passport-jwt').ExtractJwt,
+  JWTSecret = config.jwt_encryption,
+  rsalt = parseInt(config.roundSalt);
 
 var User = function (user) {
   this.username = user.username;
@@ -15,6 +21,7 @@ var User = function (user) {
 // this is for admin ONLY -- we will have this under strict authentication lock and key when we go live.
 
 User.getAllUsers = (result) => {
+  console.log(rsalt);
   db.query("SELECT * from users", (err, res) => {
     if (err) result(null, err);
     else result(null, res);
@@ -29,6 +36,7 @@ User.getUserById = (userId, result) => {
 };
 
 User.getUserByUserName = (userName, result) => {
+
   db.query("Select * from users where username = ?", userName, (err, res) => {
     if (err) result(null, err);
     else result(null, res);
@@ -36,12 +44,13 @@ User.getUserByUserName = (userName, result) => {
 };
 
 User.registerUser = (newUser, result) => {
-  bcrypt.genSalt(10, (err, salt) => {
+
+  bcrypt.genSalt(rsalt, (err, salt) => {
     bcrypt.hash(newUser.password, salt, (err, pw_hash) => {
       newUser.password = pw_hash;
       db.query("INSERT INTO users SET ?", newUser, (err, res, next) => {
         if (err) {
-          console.log(err);
+          result(null, err);
         } else {
           result(null, res.insertId);
         }
@@ -58,9 +67,7 @@ User.updateUserById = (userId, userUpdate, result) => {
   }
 
   if (userUpdate.password) {
-    /* run it through the hasher.
-      HASHING CODE GOES HERE */
-    bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.genSalt(rsalt, (err, salt) => {
       bcrypt.hash(userUpdate.password, salt, (err, pw_hash) => {
         userUpdate.password = pw_hash;
         db.query("UPDATE users SET password = ?", userUpdate.password, (err, res) => {
@@ -120,6 +127,6 @@ User.deleteUserById = (userId, result) => {
       result(null, res);
     }
   });
-}
+};
 
 module.exports = User;

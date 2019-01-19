@@ -40,7 +40,7 @@ exports.register_user = (req, res) => {
     return;
   }
   if (!v.isValidId(new_user.username)) {
-    res.res.status(400).send({
+    res.status(400).send({
       error: true, message: "BAD USER ID"
     });
     return;

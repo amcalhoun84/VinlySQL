@@ -41,10 +41,8 @@ var Wine = function (wine) {
 Wine.getAllWines = function getAllWines(result) {
   db.query("SELECT * FROM wine", function (err, res) {
     if (err) {
-      console.log("error", err);
       result(null, err);
     } else {
-      console.log("wine: ", res);
       result(null, res);
     }
   });
@@ -53,7 +51,6 @@ Wine.getAllWines = function getAllWines(result) {
 Wine.getWineById = function getWineById(wineId, result) {
   db.query("SELECT * FROM wine where wine_id = ?", [wineId], function (err, res) {
     if (err) {
-      console.log("error: ", err);
       result(null, err);
     } else {
       result(null, res);
@@ -144,8 +141,6 @@ Wine.getRegionAndVarietal = function getRegionAndVarietal(wineRegion, wineVariet
 };
 
 Wine.getRegionAndWinery = function getRegionAndWinery(wineRegion, winery, result) {
-  console.log(wineRegion);
-  console.log(winery);
   db.query("SELECT * from wine where region = ? and winery = ?", [wineRegion, winery], (err, res) => {
     if (err) {
       result(null, err);
@@ -282,7 +277,6 @@ Wine.deleteWineById = function deleteWineById(wineId, result) {
 // Matchers
 
 Wine.matchWineToFood = function matchWineToFood(wineVarietal, result) {
-  // console.log("Varietal: ", wineVarietal);
   db.query("SELECT food.food_id, food_type from food left join wine_food_pairing wfp on food.food_id = wfp.food_id  left join util_varietals w on w.varietal_id = wfp.wine_id where w.varietal = ? ", wineVarietal, function (err, res) {
     if (err) {
       result(null, err);
