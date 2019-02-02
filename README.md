@@ -1,26 +1,44 @@
-vinly
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-To DO:
+## Available Scripts
 
-Consolidate data, maybe rewrite the database to be more general for demonstration purposes
-Gather explicit data and expand data tables: (Separate DB is already created with schema, original demo schema was for PoC)
-* Beer - 
-* Wine - Vintage, Winery, 'Name' if applicable
-* Food - create dishes, built around food types -- add food types based on primary flavor profile
+In the project directory, you can run:
 
-Wine / Beer Matching DBs
-* Two options
-  - match foods by flavor profiles
-  - match foods by type as now, add 'notes', such as 'spicy', 'sweet', 'savory', etc.
-  
- * User Favorites
-  - Favorite_ID
-  - User_ID -- connects to user
-  - User_Favorite_Wine -- connects to wine - by varietal? Possibly easier than IDs.
-  - User_Favorite_Beer -- connects to beer - by type? Possibly easier than IDs
-  
-  Matching by type would allow easier matching to types for recommendations.
-  
-  Create Android App, have Cuedadr help with iOS.
-  Update REACT FE to be compatibile with phones and mobile devices.
-  Write documentation for API.
+### `npm start`
+
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).

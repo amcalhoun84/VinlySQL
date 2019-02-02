@@ -4,6 +4,12 @@ const express = require('express'),
   app = express(),
   router = express.Router(),
   bodyParser = require('body-parser'),
+  mysql = require('mysql'),
+  passport = require('passport'),
+  pe = require('parse-error'),
+  cp = require('cookie-parser'),
+  cors = require('cors'),
+  logger = require('morgan'),
   routes = require('./routes/api'),
   wines = require('./routes/wines'),
   beers = require('./routes/beers'),
@@ -12,15 +18,12 @@ const express = require('express'),
   cheese = require('./routes/cheese'),
   utils = require('./routes/utils'),
   fwm = require('./routes/matchwine'),
-  mysql = require('mysql'),
-  passport = require('passport'),
-  pe = require('parse-error'),
-  cp = require('cookie-parser'),
-  cors = require('cors'),
-  logger = require('morgan'),
+  fbm = require('./routes/matchbeer'),
   port = process.env.PORT || 4000;
 
 require('./config/passport');
+
+const isProduction = process.env.NODE_ENV === 'prod';
 
 let pool = mysql.createPool({
   connectionLimit: 100,
@@ -73,3 +76,4 @@ users(app);
 cheese(app);
 utils(app);
 fwm(app);
+fbm(app);
