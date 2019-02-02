@@ -28,8 +28,12 @@ exports.get_user_by_un = (req, res) => {
 
 
 exports.register_user = (req, res) => {
+
+  console.log("REQ", req.body);
+
   var new_user = new User(req.body);
-  new_user.DOB = v.parseDOB(new_user.DOB);
+  new_user.DOB = v.parseDOB(req.body.dob);
+
 
   console.log(new_user);
 
@@ -61,7 +65,6 @@ exports.register_user = (req, res) => {
     User.registerUser(new_user, (err, user) => {
       if (err)
         res.send(err);
-      console.log("User: ", user);
       res.json(user);
     });
   }

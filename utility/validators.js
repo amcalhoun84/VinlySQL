@@ -72,6 +72,8 @@ exports.isValidPassword = (userPassword, err, res) => {
 };
 
 exports.parseDOB = date => {
+  console.log("DATE: ", date);
+  console.log("DATE OF BIRTH:", moment(date).format('YYYY/MM/DD'))
   return moment(date).format("YYYY/MM/DD");
 
 }
